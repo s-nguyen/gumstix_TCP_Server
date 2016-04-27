@@ -8,12 +8,15 @@ int main() {
 
     leptonSPI c;
     TCP_Server datapipe;
+    uint8_t ack[1];
     datapipe.tcp_init();
+    cout << "connected" << endl;
 
     while(1) {
         c.getFrame();
 
-        datapipe.tcp_write(c.frame);
+        datapipe.tcp_write(c.frame, 9840);
+        datapipe.tcp_read(ack, 1);
     }
 
 

@@ -35,16 +35,18 @@ void TCP_Server::tcp_init() {
              error("ERROR on accept");
 }
 
-void TCP_Server::tcp_read(uint8_t *buf) {
+int TCP_Server::tcp_read(uint8_t *buf, int len) {
     bzero(buf, 9840);
-    n = read(newsockfd, buf, 9840);
+    n = read(newsockfd, buf, len);
     if (n < 0)
         error("ERROR reading from socket");
+    return n;
 }
 
-void TCP_Server::tcp_write(uint8_t *buf) {
+int TCP_Server::tcp_write(uint8_t *buf, int len) {
    // bzero(buf, 9840);
-    n = write(newsockfd, buf, 9840);
+    n = write(newsockfd, buf, len);
     if (n < 0)
         error("ERROR reading from socket");
+    return n;
 }
