@@ -1,0 +1,6 @@
+#!/bin/bash
+g_ether
+$HOST=111.0.1.1
+$TARGET=111.0.1.2
+ifconfig usb0 $TARGET netmask 255.255.255.0
+route add default gw $HOST
