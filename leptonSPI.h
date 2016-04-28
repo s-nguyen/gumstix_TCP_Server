@@ -20,22 +20,26 @@
 #define FRAME_SIZE_UINT16 (PACKET_SIZE_UINT16*PACKETS_PER_FRAME)
 #define FPS 27;
 
+#define VOSPI_FRAME_SIZE (164)
+
+
 using namespace std;
+
+static const char *device = "/dev/spidev1.0";
+static uint8_t mode;
+static uint8_t bits = 8;
+static uint32_t speed = 16000000;
+static uint16_t delay;
 
 class leptonSPI {
 	
-	static const char *device;
-	static uint8_t mode;
-	static uint8_t bits;
-	static uint32_t speed;
-	static uint16_t delay;
+
 	
-	struct spi_ioc_transfer tr;
+    struct spi_ioc_transfer tr;
 	
 public:
-	unsigned int lepton_image[80][80];
 	uint8_t lepton_frame_packet[PACKET_SIZE];
-    uint8_t frame[9840];
+    uint8_t frame[PACKET_SIZE*PACKETS_PER_FRAME];
 
 
 	int fd;
@@ -43,7 +47,6 @@ public:
 	
     int initCamera();
     void getFrame();
-
     int closeCamera();
 
 	leptonSPI();
